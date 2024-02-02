@@ -1,0 +1,22 @@
+{
+  "name": "Remote Support Management",
+  "version": "1.0.0",
+  "description": "Manage the use of the machines",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve"
+  },
+  "keywords": [
+    "html",
+    "css"
+  ],
+  "author": "Goncalo Frade",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "11.2.0"
+  },
+  "dependencies": {
+    "socket.io": "4.7.4",
+    "express": "4.18.2"
+  }
+}

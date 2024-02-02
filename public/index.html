@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared Computers</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+      }
+
+      .computer-button {
+        padding: 10px;
+        font-size: 16px;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      .available {
+        background-color: #4caf50;
+        color: white;
+      }
+
+      .unavailable {
+        background-color: #ff0000;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Remote Support VMs</h1>
+
+    <button
+      id="RemoteSupport01"
+      class="computer-button available"
+      onclick="toggleAvailability('RemoteSupport01')"
+    >
+      Remote Support 01
+    </button>
+    <button
+      id="RemoteSupport02"
+      class="computer-button available"
+      onclick="toggleAvailability('RemoteSupport02')"
+    >
+    RemoteSupport02
+    </button>
+    <button
+      id="RemoteSupport03"
+      class="computer-button available"
+      onclick="toggleAvailability('RemoteSupport03')"
+    >
+    RemoteSupport03
+    </button>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      function toggleAvailability(computerId) {
+        socket.emit("toggleAvailability", computerId);
+      }
+
+      socket.on("updateAvailability", (computerId) => {
+        const computerButton = document.getElementById(computerId);
+
+        if (computerButton.classList.contains("available")) {
+          computerButton.classList.remove("available");
+          computerButton.classList.add("unavailable");
+          computerButton.innerHTML = computerId + " (Unavailable)";
+        } else {
+          computerButton.classList.remove("unavailable");
+          computerButton.classList.add("available");
+          computerButton.innerHTML = computerId + " (Available)";
+        }
+      });
+    </script>
+  </body>
+</html>
